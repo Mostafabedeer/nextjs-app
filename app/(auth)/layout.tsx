@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import SocialAuthForm from "@/components/forms/SocialAuthForm";
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -27,38 +27,7 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         {children}
-        <div className="mt-5 flex flex-col gap-2 sm:mt-10 sm:flex-row sm:gap-4">
-          <div>
-            <Button
-              type="submit"
-              className="background-dark400_light900 text-dark200_light900 border text-xs sm:text-sm"
-            >
-              <Image
-                src="/icons/github.svg"
-                width={15}
-                height={15}
-                alt="github icon"
-                className="invert dark:invert-0"
-              />
-              <span className="ml-2">Sign in with Github</span>
-            </Button>
-          </div>
-          <div>
-            <Button
-              type="submit"
-              className="background-dark400_light900 text-dark200_light900 border text-xs sm:text-sm"
-            >
-              <Image
-                src="/icons/google.svg"
-                width={15}
-                height={15}
-                alt="google icon"
-                className="invert dark:invert-0"
-              />
-              <span className="ml-2">Sign in with Google</span>
-            </Button>
-          </div>
-        </div>
+        <SocialAuthForm />
       </div>
     </div>
   );
