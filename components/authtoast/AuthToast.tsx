@@ -13,7 +13,6 @@ export default function AuthToast() {
 
     if (signin === "success") {
       toast.success("Signed in successfully!", {
-        description: "You have successfully signed in with GitHub.",
         position: "top-center",
       });
 
