@@ -5,6 +5,6 @@ import ROUTES from "@/constants/routes";
 
 export async function signInGithubAction() {
   await signIn("github", {
-    redirectTo: ROUTES.Home,
+    redirectTo: `${ROUTES.Home}?signin=success`,
   });
 }
