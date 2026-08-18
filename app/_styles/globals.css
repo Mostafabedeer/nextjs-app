@@ -357,6 +357,15 @@
   }
 }
 
+@layer components {
+  .label {
+    @apply text-dark400_light900 block text-sm font-medium md:text-base;
+  }
+  .input {
+    @apply background-light800_dark300 placeholder:text-dark400_light900 focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border px-3 py-2 text-sm focus:ring-1 focus:outline-none;
+  }
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 3px;
   height: 3px;

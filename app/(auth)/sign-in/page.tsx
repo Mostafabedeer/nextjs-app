@@ -1,5 +1,13 @@
-function SignIn() {
-  return <div>sign in</div>;
-}
+import AuthForm from "../../../components/forms/AuthForm";
 
-export default SignIn;
+export default function SignIn() {
+  return (
+    <AuthForm
+      formType="SIGN_IN"
+      defaultValues={{
+        email: "",
+        password: "",
+      }}
+    />
+  );
+}
