@@ -36,7 +36,7 @@ const NavLinks = ({
             className={cn(
               isActive
                 ? "primary-gradient text-light-900 rounded-lg"
-                : "text-dark300_light900",
+                : "text-dark300_light900 text-light-900",
               "flex items-center justify-start gap-4 bg-transparent p-4",
             )}
           >
@@ -50,7 +50,6 @@ const NavLinks = ({
             <p
               className={cn(
                 isActive ? "base-bold text-sm" : "base-medium text-sm",
-                !isMobileNav && "max-lg:hidden",
               )}
             >
               {item.label}

@@ -2,10 +2,10 @@ import AuthToast from "@/components/authtoast/AuthToast";
 
 async function Home() {
   return (
-    <main className="container mx-auto px-4 py-10">
+    <div className="container mx-auto">
       Home
       <AuthToast />
-    </main>
+    </div>
   );
 }
 
