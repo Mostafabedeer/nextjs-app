@@ -69,3 +69,61 @@ export const BADGE_CRITERIA = {
     GOLD: 100000,
   },
 };
+
+export const HotNetworkData = [
+  {
+    id: 1,
+    title: "How to center a div in CSS?",
+  },
+  {
+    id: 2,
+    title: "What is the difference between let and var in JavaScript?",
+  },
+  {
+    id: 3,
+    title: "How to make a responsive navbar in React?",
+  },
+];
+
+export const PopularTagsData = [
+  {
+    id: 1,
+    tag: "JavaScript",
+    numberOfQuestions: 1200,
+  },
+  {
+    id: 2,
+    tag: "React",
+    numberOfQuestions: 950,
+  },
+  {
+    id: 3,
+    tag: "CSS",
+    numberOfQuestions: 800,
+  },
+  {
+    id: 4,
+    tag: "HTML",
+    numberOfQuestions: 700,
+  },
+  {
+    id: 5,
+    tag: "Node.js",
+    numberOfQuestions: 650,
+  },
+  {
+    id: 6,
+    tag: "TypeScript",
+    numberOfQuestions: 600,
+  },
+  {
+    id: 7,
+    tag: "Next.js",
+    numberOfQuestions: 550,
+  },
+  {
+    id: 8,
+    tag: "Python",
+    numberOfQuestions: 500,
+  },
+];

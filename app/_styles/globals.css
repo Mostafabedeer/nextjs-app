@@ -117,6 +117,9 @@
 @utility background-dark400_light900 {
   @apply dark:bg-dark-400! bg-light-900!;
 }
+@utility background-dark400_light800 {
+  @apply dark:bg-dark-400! bg-light-800!;
+}
 
 @utility text-dark100_light900 {
   @apply text-dark-100! dark:text-light-900!;

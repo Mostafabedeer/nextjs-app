@@ -49,7 +49,9 @@ const NavLinks = ({
             />
             <p
               className={cn(
-                isActive ? "base-bold text-sm" : "base-medium text-sm",
+                isActive
+                  ? "base-bold text-dark300_light900 text-sm sm:text-xs md:text-sm"
+                  : "base-medium text-dark300_light900 text-sm sm:text-xs md:text-sm",
               )}
             >
               {item.label}
