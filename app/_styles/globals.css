@@ -102,6 +102,9 @@
   @apply bg-light-800 dark:bg-dark-400;
 }
 
+@utility background-primary500_dark400 {
+  @apply bg-primary-500 dark:bg-dark-400;
+}
 @utility background-light700_dark400 {
   @apply bg-light-700 dark:bg-dark-400;
 }
@@ -151,6 +154,10 @@
 
 @utility text-dark500_light500 {
   @apply text-dark-500 dark:text-light-500;
+}
+
+@utility text-dark400_light500 {
+  @apply text-dark-400 dark:text-light-500;
 }
 
 @utility text-dark500_light400 {

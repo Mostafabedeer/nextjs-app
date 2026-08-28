@@ -42,6 +42,24 @@ export const sidebarLinks = [
   },
 ];
 
+export const FILTER_OPTIONS = [
+  {
+    name: "Newest",
+    value: "newest",
+  },
+  {
+    name: "Rcommended Questions",
+    value: "recommended",
+  },
+  {
+    name: "Frequent",
+    value: "frequent",
+  },
+  {
+    name: "Unanswered",
+    value: "unanswered",
+  },
+];
 export const BADGE_CRITERIA = {
   QUESTION_COUNT: {
     BRONZE: 10,

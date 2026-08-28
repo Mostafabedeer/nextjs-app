@@ -37,7 +37,7 @@ const NavLinks = ({
               isActive
                 ? "primary-gradient text-light-900 inline-block rounded-lg"
                 : "text-dark300_light900 text-light-900",
-              "mx-2 flex items-center justify-start gap-4 bg-transparent py-4 pl-2",
+              "mx-2 flex items-center justify-start gap-2 bg-transparent py-6 pl-2",
             )}
           >
             <Image
