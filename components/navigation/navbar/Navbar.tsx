@@ -11,7 +11,7 @@ const Navbar = async () => {
   const image = user?.image;
 
   return (
-    <nav className="background-light900_dark200 shadow-light-300 flex w-full gap-5 p-6 sm:col-span-8 sm:col-start-3 sm:row-span-1 sm:px-12 dark:shadow-none">
+    <nav className="background-light900_dark200 shadow-light-300 col-span-7 flex w-full gap-5 p-6 sm:px-12 lg:col-start-2 dark:shadow-none">
       <Link href="/" className="flex items-center gap-1 sm:hidden">
         <div className="mt-1 flex items-center">
           <Image

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function HotNetwork() {
   return (
-    <div className="background-light900_dark200 border-dark100_light900 hidden h-full rounded-lg border p-4 sm:col-span-2 sm:col-start-9 sm:row-span-4 sm:row-start-2 sm:block">
+    <div className="background-light900_dark200 border-dark100_light900 col-span-2 col-start-7 row-span-2 row-start-2 hidden h-full rounded-lg border p-4 md:hidden lg:block">
       <div>
         <h2 className="ext-dark200_light900 mb-4 text-lg font-bold">
           Hot Network

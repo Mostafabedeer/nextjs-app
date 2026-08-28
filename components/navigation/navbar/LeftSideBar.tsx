@@ -11,7 +11,7 @@ async function RightSideBar() {
   const user = session?.user;
 
   return (
-    <div className="background-light900_dark200 sm:border-dark100_light900 hidden rounded-lg border sm:block sm:h-full sm:grid-cols-2 sm:grid-rows-10 sm:px-2 md:px-4">
+    <div className="background-light900_dark200 sm:border-dark100_light900 hidden h-screen rounded-lg border sm:block">
       <Link href="/" className="hidden items-center gap-1 sm:flex">
         <div className="mt-1 ml-2 flex items-center justify-center">
           <Image
@@ -44,7 +44,7 @@ async function RightSideBar() {
           </Button>
         </form>
       ) : (
-        <div className="mt-10 flex flex-col gap-3">
+        <div className="mt-10 flex flex-col gap-3 px-2">
           <Link href={ROUTES.SignIn}>
             <Button className="small-medium btn-secondary min-h-10.25 w-full cursor-pointer rounded-lg px-4 py-3 shadow-none">
               <span className="primary-text-gradient">Log In</span>

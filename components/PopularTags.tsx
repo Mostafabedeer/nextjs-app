@@ -1,5 +1,5 @@
 import { PopularTagsData } from "@/constants";
-import TagCard from "./TagCard";
+import TagCard from "./cards/TagCard";
 
 function PopularTags() {
   // .div6 {
@@ -9,7 +9,7 @@ function PopularTags() {
   //     grid-row-start: 6;
   // }
   return (
-    <div className="sm:start border-dark100_light900 background-light900_dark200 hidden rounded-lg border p-4 sm:col-span-2 sm:col-start-9 sm:row-span-4 sm:row-start-6 sm:block sm:grid-cols-2 sm:grid-rows-4">
+    <div className="sm:start border-dark100_light900 background-light900_dark200 col-span-2 col-start-7 row-span-2 row-start-4 hidden rounded-lg border p-4 md:hidden lg:block">
       <div>
         <h2 className="text-dark200_light900 mb-4 text-lg font-bold">
           Popular Tags
