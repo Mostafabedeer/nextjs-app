@@ -60,6 +60,27 @@ export const FILTER_OPTIONS = [
     value: "unanswered",
   },
 ];
+
+// upvote, answer, view,
+
+export const AUTHOR_QUESTION_DATA = [
+  {
+    upvotes: 10,
+    answers: 5,
+    views: 100,
+  },
+  {
+    upvotes: 20,
+    answers: 8,
+    views: 300,
+  },
+  {
+    upvotes: 5,
+    answers: 2,
+    views: 50,
+  },
+];
+
 export const BADGE_CRITERIA = {
   QUESTION_COUNT: {
     BRONZE: 10,

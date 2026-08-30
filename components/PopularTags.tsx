@@ -14,7 +14,7 @@ function PopularTags() {
         <h2 className="text-dark200_light900 mb-4 text-lg font-bold">
           Popular Tags
         </h2>
-        <ul className="flex flex-col gap-4 text-sm">
+        <ul className="flex flex-col gap-3 text-sm">
           {PopularTagsData.map((item) => (
             <li key={item.id} className="flex items-center justify-between">
               <TagCard

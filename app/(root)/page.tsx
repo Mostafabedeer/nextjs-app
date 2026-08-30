@@ -1,7 +1,9 @@
 import AuthToast from "@/components/authtoast/AuthToast";
+import QuestionCard from "@/components/cards/QuestionCard";
 import FilterHomeQuestions from "@/components/filter/FilterHomeQuestions";
 import LocalSearch from "@/components/search/LocalSearch";
 import ROUTES from "@/constants/routes";
+import { Question } from "@hugeicons/core-free-icons";
 import Link from "next/link";
 
 const questions = [
@@ -15,14 +17,14 @@ const questions = [
       { _id: "2", name: "typescript" },
       { _id: "3", name: "react" },
     ],
-    auther: {
+    author: {
       _id: "1",
       name: "John Doe",
     },
     upvotes: 10,
     answers: 5,
     views: 100,
-    createdAt: new Date("2023-06-01T12:00:00Z"),
+    createdAt: new Date(),
   },
   {
     _id: "2",
@@ -33,7 +35,7 @@ const questions = [
       { _id: "4", name: "react" },
       { _id: "5", name: "vue" },
     ],
-    auther: {
+    author: {
       _id: "2",
       name: "Jane Smith",
     },
@@ -51,7 +53,7 @@ const questions = [
       { _id: "6", name: "react" },
       { _id: "7", name: "performance" },
     ],
-    auther: {
+    author: {
       _id: "3",
       name: "Alice Johnson",
     },
@@ -116,29 +118,7 @@ async function Home({ searchParams }: SearchParams) {
       <section className="mt-5 max-h-[calc(100vh-300px)] overflow-y-scroll">
         <ul className="flex flex-col gap-5">
           {filteredQuestions.map((question) => (
-            <li
-              key={question._id}
-              className="rounded-1.5 border-light-300_dark700 border p-4 transition-all duration-300 hover:shadow-md"
-            >
-              <Link href={`/questions/${question._id}`}>
-                <h2 className="text-dark200_light900 sm:h2-bold text-sm font-medium capitalize sm:text-lg">
-                  {question.title}
-                </h2>
-                <p className="text-dark200_light900 sm:body-regular mt-2 text-sm sm:text-base">
-                  {question.description}
-                </p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {question.tags.map((tag) => (
-                    <span
-                      key={tag._id}
-                      className="rounded-1.5 bg-light-300_dark700 text-dark200_light900 px-2 py-1 text-xs font-medium sm:text-sm"
-                    >
-                      {tag.name}
-                    </span>
-                  ))}
-                </div>
-              </Link>
-            </li>
+            <QuestionCard key={question._id} question={question} />
           ))}
         </ul>
       </section>
