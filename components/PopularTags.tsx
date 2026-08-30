@@ -17,13 +17,7 @@ function PopularTags() {
         <ul className="flex flex-col gap-3 text-sm">
           {PopularTagsData.map((item) => (
             <li key={item.id} className="flex items-center justify-between">
-              <TagCard
-                item={{
-                  ...item,
-                  _id: String(item.id),
-                  numberOfQuestions: String(item.numberOfQuestions),
-                }}
-              />
+              <TagCard _id={String(item.id)} tag={item.tag} />
               <span className="block">{item.numberOfQuestions}+</span>
             </li>
           ))}

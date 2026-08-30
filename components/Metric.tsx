@@ -2,20 +2,6 @@ import { cn, getTimeStamp } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-{
-  /* <div className="flex items-center gap-0.5">
-          <Image
-            src="/icons/avatar.svg"
-            alt="avatar"
-            width={30}
-            height={30}
-            className="rounded-full"
-          />
-          <p className="text-dark400_light500 text-xs sm:text-sm">
-            {`${question.author.name.split(" ")[0]}. ${getTimeStamp(question.createdAt)} `}
-          </p>
-        </div> */
-}
 interface MetricProps {
   imgSrc: string;
   alt: string;
