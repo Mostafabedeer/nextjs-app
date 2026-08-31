@@ -36,13 +36,13 @@ function Metric({
           alt={alt}
           width={16}
           height={16}
-          className={`${imgStyle}`}
+          className={`${imgStyle} `}
         />
         <p className={`${textStyle} flex items-center gap-0.5`}>
           {isAuthor && createdAt ? <>{String(value).split(" ")[0]}</> : null}
           {title ? (
             <span className={cn(`small-regular line-clamp-1`, titleStyles)}>
-              {title}
+              {value} {title}
             </span>
           ) : null}
         </p>

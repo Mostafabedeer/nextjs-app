@@ -1,10 +1,19 @@
 "use client";
 
 import { AskQuestionSchema } from "@/lib/validations";
+import { Field } from "@base-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { MDXEditorMethods } from "@mdxeditor/editor";
+import dynamic from "next/dynamic";
+import { useRef } from "react";
+import { Controller, useForm } from "react-hook-form";
+
+const Editor = dynamic(() => import("@/components/editor/index"), {
+  ssr: false,
+});
 
 function AskQuestionForm() {
+  const editorRef = useRef<MDXEditorMethods>(null);
   const form = useForm({
     resolver: zodResolver(AskQuestionSchema),
     defaultValues: {
@@ -14,7 +23,7 @@ function AskQuestionForm() {
     },
   });
   return (
-    <form {...form} className="mt-6 flex flex-col gap-4 sm:mt-9">
+    <form className="mt-6 flex flex-col gap-4 sm:mt-9">
       <div className="flex flex-col">
         <label htmlFor="title" className="text-dark100_light900">
           Question Title <span className="text-primary-500">*</span>
@@ -35,7 +44,17 @@ function AskQuestionForm() {
           Detailed explanation of your problem?{" "}
           <span className="text-primary-500">*</span>
         </label>
-        <textarea id="content" {...form.register("content")} className="mt-1" />
+        <Controller
+          name="content"
+          control={form.control}
+          render={({ field }) => (
+            <Editor
+              value={field.value}
+              fieldChange={field.onChange}
+              editorRef={editorRef}
+            />
+          )}
+        />
         <p className="sm:body-regular text-light-500 mt-2.5 text-xs">
           Be specific and imagine you&apos;re asking a question to another
           person.
