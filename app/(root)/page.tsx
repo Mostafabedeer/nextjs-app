@@ -3,7 +3,6 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import FilterHomeQuestions from "@/components/filter/FilterHomeQuestions";
 import LocalSearch from "@/components/search/LocalSearch";
 import ROUTES from "@/constants/routes";
-import { Question } from "@hugeicons/core-free-icons";
 import Link from "next/link";
 
 const questions = [

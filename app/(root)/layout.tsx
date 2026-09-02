@@ -7,12 +7,12 @@ import { Toaster } from "sonner";
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="h-full sm:grid sm:grid-cols-8 sm:grid-rows-[repeat(5,max-content)] sm:gap-3">
+    <main className="h-screen sm:grid sm:grid-cols-8 sm:grid-rows-[auto_1fr_1fr_1fr_1fr] sm:gap-3">
       <aside className="hidden sm:col-span-2 sm:col-start-1 sm:row-span-5 sm:row-start-1 sm:block lg:col-span-1">
         <LeftSideBar />
       </aside>
       <Navbar />
-      <div className="col-span-7 col-start-3 row-start-2 mx-2 mt-5 ml-6 sm:mx-0 sm:ml-9 lg:col-span-5 lg:row-span-4">
+      <div className="col-span-7 col-start-3 row-start-2 mx-1 mt-5 ml-1 overflow-y-scroll sm:mx-0 sm:ml-9 md:row-span-4 lg:col-span-5">
         {children}
       </div>
       <HotNetwork />

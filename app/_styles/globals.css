@@ -425,6 +425,14 @@
   display: block;
 }
 
+.mdxeditor {
+  background: #f4f6f8 !important;
+}
+
+.dark .mdxeditor {
+  background: #0f1117 !important;
+}
+
 .mdxeditor-toolbar {
   background: #ffffff !important;
 }
@@ -445,6 +453,9 @@
   border-color: #555 !important;
 }
 
+.dark .dark-editor {
+  border: none !important;
+}
 .markdown a {
   color: #1da1f2;
 }
