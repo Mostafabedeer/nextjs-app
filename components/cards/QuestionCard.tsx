@@ -22,7 +22,7 @@ function QuestionCard({ question }: QuestionCardProps) {
       <ul className="mt-4 flex gap-2">
         {question.tags.map((tag) => (
           <li key={tag._id}>
-            <TagCard _id={tag._id} tag={tag.name} />
+            <TagCard _id={tag._id} name={tag.name} />
           </li>
         ))}
       </ul>
