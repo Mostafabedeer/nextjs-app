@@ -65,6 +65,7 @@ const questions = [
 interface SearchParams {
   searchParams: Promise<{ [key: string]: string }>;
 }
+
 async function Home({ searchParams }: SearchParams) {
   const { query = "", filter = "" } = await searchParams;
   const normalizedQuery = query.toLowerCase();

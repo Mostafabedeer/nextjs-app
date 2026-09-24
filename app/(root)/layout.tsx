@@ -12,7 +12,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
         <LeftSideBar />
       </aside>
       <Navbar />
-      <div className="col-span-7 col-start-3 row-start-2 mx-1 mt-5 ml-1 overflow-y-scroll sm:mx-0 sm:ml-9 md:row-span-4 lg:col-span-5">
+      <div className="col-span-7 col-start-3 row-start-2 mx-1 mt-5 ml-1 sm:mx-0 sm:ml-9 md:row-span-4 lg:col-span-5">
         {children}
       </div>
       <HotNetwork />

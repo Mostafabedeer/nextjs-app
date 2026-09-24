@@ -33,7 +33,7 @@ function FilterOption({ filterOption }: FilterOptionProps) {
   };
 
   return (
-    <li key={filterOption.name}>
+    <li>
       <button
         className={`rounded-1.5 cursor-pointer px-2 py-1 text-xs font-medium transition-all duration-300 hover:shadow-md sm:px-4 sm:py-2 sm:text-sm ${
           activeFilter === filterOption.value

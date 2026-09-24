@@ -16,9 +16,12 @@ declare global {
   var mongoose: MongooseCache;
 }
 
+// we create a cached variable to store the connection and promise, so that we don't create multiple connections in development and also we use server action that doesn't remember the state of the connection, so we need to store it in a global variable
 let cached = global.mongoose;
 
 if (!cached) {
+  // this is necessary to avoid creating multiple connections in development
+  // this syntax means that if global.mongoose is not defined, we define it as an object with conn and promise properties set to null
   cached = global.mongoose = { conn: null, promise: null };
 }
 

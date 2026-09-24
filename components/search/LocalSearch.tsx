@@ -30,6 +30,7 @@ const LocalSearch = ({
   console.log(pathname, router, searchParams, query);
 
   useEffect(() => {
+    // we use a debounce function to avoid making too many requests when the user is typing
     const delayDebounceFn = setTimeout(() => {
       if (searchQuery === query) return;
       if (searchQuery) {
