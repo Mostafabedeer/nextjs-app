@@ -4,9 +4,8 @@ interface IUser {
   name: string;
   username: string;
   email: string;
-  password: string;
   bio?: string;
-  image: string;
+  image?: string;
   location?: string;
   portfolio?: string;
   reputation?: number;
@@ -18,9 +17,8 @@ const UserSchema = new Schema<IUser>(
     name: { type: String, required: true },
     username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
     bio: { type: String, default: "" },
-    image: { type: String, required: true },
+    image: { type: String },
     location: { type: String, default: "" },
     portfolio: { type: String, default: "" },
     reputation: { type: Number, default: 0 },
