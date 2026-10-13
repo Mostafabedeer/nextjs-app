@@ -1,42 +1,61 @@
 import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+import { provisionOauthUser } from "./lib/auth/provision-oauth-user";
+import { api } from "./lib/api";
+import { IAccountDoc } from "./database/account.model";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
-    GitHub,
+    GitHub({
+      authorization: {
+        params: { scope: "read:user user:email" },
+      },
+    }),
     Google,
-    // Credentials({
-    //   name: "Sign in with credentials",
-    //   credentials: {
-    //     email: {
-    //       label: "Email",
-    //       type: "email",
-    //       placeholder: "you@example.com",
-    //     },
-    //     password: { label: "Password", type: "password" },
-    //   },
-    //   async authorize(credentials) {
-    //     const email = credentials?.email?.toString();
-    //     const password = credentials?.password?.toString();
-
-    //     if (!email || !password) return null;
-
-    //     if (
-    //       email.toLowerCase() === "demo@example.com" &&
-    //       password === "Password123!"
-    //     ) {
-    //       return {
-    //         id: "demo-user",
-    //         name: "Demo User",
-    //         email,
-    //         image: null,
-    //       };
-    //     }
-
-    //     return null;
-    //   },
-    // }),
   ],
+  callbacks: {
+    async session({ session, token }) {
+      session.user.id = token.sub as string;
+      return session;
+    },
+    async jwt({ token, account }) {
+      if (account) {
+        const { data: existingAccount, success } =
+          (await api.accounts.getByProvider(
+            account.type === "credentials"
+              ? token.email!
+              : account.providerAccountId,
+          )) as ActionResponse<IAccountDoc>;
+
+        if (!success || !existingAccount) return token;
+
+        const userId = existingAccount.userId;
+
+        if (userId) token.sub = userId.toString();
+      }
+
+      return token;
+    },
+    async signIn({ user, profile, account }) {
+      if (account?.type === "credentials") return true;
+      if (!account || !user) return false;
+
+      const userInfo = {
+        name: user.name!,
+        email: user.email!,
+        image: user.image!,
+        username:
+          account.provider === "github"
+            ? (profile?.login as string)
+            : (user.name?.toLowerCase() as string),
+      };
+
+      return provisionOauthUser({
+        provider: account.provider as "github" | "google",
+        providerAccountId: account.providerAccountId,
+        user: userInfo,
+      });
+    },
+  },
 });

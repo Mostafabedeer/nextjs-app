@@ -27,6 +27,6 @@ export async function signInCredentialsAction(data: SignInFormData) {
   console.log(data);
 }
 
-export async function signUpCredentialsAction(data: SignInFormData) {
+export async function signUpCredentialsAction(data: SignUpFormData) {
   console.log(data);
 }
