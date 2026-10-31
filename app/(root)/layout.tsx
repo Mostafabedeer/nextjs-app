@@ -2,8 +2,7 @@ import HotNetwork from "@/components/HotNetwork";
 import Navbar from "@/components/navigation/navbar/Navbar";
 import PopularTags from "@/components/PopularTags";
 import LeftSideBar from "@/components/navigation/navbar/LeftSideBar";
-
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/toast";
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (

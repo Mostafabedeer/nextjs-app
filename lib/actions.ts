@@ -22,11 +22,3 @@ export async function logOutAction() {
     redirectTo: `${ROUTES.Home}?signout=success`,
   });
 }
-
-export async function signInCredentialsAction(data: SignInFormData) {
-  console.log(data);
-}
-
-export async function signUpCredentialsAction(data: SignUpFormData) {
-  console.log(data);
-}

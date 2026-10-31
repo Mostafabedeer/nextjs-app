@@ -1,55 +1,62 @@
 "use client";
-
-import Link from "next/link";
+import {
+  DefaultValues,
+  FieldValues,
+  Path,
+  Resolver,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ZodType } from "zod";
+import { useRouter } from "next/navigation";
+import ROUTES from "@/constants/routes";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import SocialAuthForm from "./SocialAuthForm";
+import Link from "next/link";
 import { SignInSchema, SignUpSchema } from "@/lib/validations";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import type { SignInFormData } from "@/app/(auth)/sign-in/types";
-import type { SignUpFormData } from "@/app/(auth)/sign-up/types";
-import { useState } from "react";
-import {
-  signInCredentialsAction,
-  signUpCredentialsAction,
-} from "@/lib/actions";
 
-function AuthForm({
+interface AuthFormProps<T extends FieldValues> {
+  formType: "SIGN_IN" | "SIGN_UP";
+  defaultValues: T;
+  onSubmit: (data: T) => Promise<ActionResponse>;
+}
+
+function AuthForm<T extends FieldValues>({
   formType,
   defaultValues,
-}: {
-  formType: "SIGN_IN" | "SIGN_UP";
-  defaultValues: Record<string, string>;
-}) {
+  onSubmit,
+}: AuthFormProps<T>) {
+  const router = useRouter();
   const schema = formType === "SIGN_UP" ? SignUpSchema : SignInSchema;
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-
-    formState: { errors },
-  } = useForm<SignInFormData | SignUpFormData>({
-    resolver: zodResolver(schema),
-    mode: "onChange",
-    defaultValues,
+  const form = useForm<T>({
+    resolver: zodResolver(schema as unknown as ZodType<T, T>) as Resolver<T>,
+    defaultValues: defaultValues as DefaultValues<T>,
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const handleSubmit: SubmitHandler<T> = async (data) => {
+    const result = (await onSubmit(data)) as ActionResponse;
 
-  const onSubmit = async function (data: SignInFormData | SignUpFormData) {
-    setIsLoading(true);
-    if (formType === "SIGN_IN")
-      await signInCredentialsAction(data as SignInFormData);
-    if (formType === "SIGN_UP")
-      await signUpCredentialsAction(data as SignUpFormData);
-    reset();
+    if (result?.success) {
+      toast("Success", {
+        description: `You have successfully ${formType === "SIGN_UP" ? "signed up" : "signed in"}.`,
+      });
 
-    setIsLoading(false);
+      router.push(ROUTES.Home);
+    } else {
+      toast(`Error ${result?.status}`, {
+        description: result?.error?.message,
+      });
+    }
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="flex flex-col gap-2"
+      >
         <div>
           {Object.keys(defaultValues).map((key) => {
             const id = key;
@@ -61,7 +68,10 @@ function AuthForm({
                 ? "email"
                 : "text";
 
-            const fieldErrors = errors[fieldName as keyof typeof errors];
+            const fieldErrors =
+              form.formState.errors[
+                fieldName as keyof typeof form.formState.errors
+              ];
 
             return (
               <div key={id} className="flex flex-col gap-1">
@@ -69,17 +79,19 @@ function AuthForm({
                   {label}
                 </label>
                 <input
-                  {...register(fieldName)}
+                  {...form.register(fieldName as Path<T>)}
                   defaultValue={defaultValues[key]}
                   type={type}
                   id={id}
                   name={id}
                   className={`input ${fieldErrors ? "border-red-500" : ""}`}
                   placeholder={label}
-                  disabled={isLoading}
+                  disabled={form.formState.isSubmitting}
                 />
                 <p className="min-h-5 text-xs text-red-500 md:text-sm">
-                  {fieldErrors ? fieldErrors.message : ""}
+                  {typeof fieldErrors?.message === "string"
+                    ? fieldErrors.message
+                    : ""}
                 </p>
               </div>
             );
@@ -88,7 +100,7 @@ function AuthForm({
             type="submit"
             className="primary-gradient text-light-900 mt-4 w-full cursor-pointer p-4 text-sm md:mt-5 md:p-5 md:text-xl"
           >
-            {isLoading
+            {form.formState.isSubmitting
               ? "Loading..."
               : formType === "SIGN_UP"
                 ? "Sign Up"

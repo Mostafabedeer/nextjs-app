@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import AuthToast from "@/components/authtoast/AuthToast";
 import QuestionCard from "@/components/cards/QuestionCard";
 import FilterHomeQuestions from "@/components/filter/FilterHomeQuestions";
 import LocalSearch from "@/components/search/LocalSearch";
@@ -125,8 +124,6 @@ async function Home({ searchParams }: SearchParams) {
           ))}
         </ul>
       </section>
-
-      <AuthToast />
     </div>
   );
 }

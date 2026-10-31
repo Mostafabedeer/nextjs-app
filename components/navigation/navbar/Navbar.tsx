@@ -32,9 +32,9 @@ const Navbar = async () => {
 
         {user && (
           <div className="flex items-center gap-2">
-            <div className="relative h-9 w-9">
+            <div className="relative h-7 w-7 rounded-full bg-slate-400">
               <Image
-                src={image ?? "/images/site-logo.svg"}
+                src={image ?? "/images/user-solid-full.svg"}
                 alt="Profile"
                 fill
                 className="rounded-full object-cover"

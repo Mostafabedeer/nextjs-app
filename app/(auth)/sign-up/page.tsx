@@ -1,4 +1,5 @@
 import AuthForm from "@/components/forms/AuthForm";
+import { SignUpWithCradentialsAction } from "@/lib/actions/auth.action";
 
 function SignUp() {
   return (
@@ -10,6 +11,7 @@ function SignUp() {
         email: "",
         password: "",
       }}
+      onSubmit={SignUpWithCradentialsAction}
     />
   );
 }
