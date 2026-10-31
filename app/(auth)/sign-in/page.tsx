@@ -1,3 +1,4 @@
+import { SignInWithCradentialsAction } from "@/lib/actions/auth.action";
 import AuthForm from "../../../components/forms/AuthForm";
 
 export default function SignIn() {
@@ -8,6 +9,7 @@ export default function SignIn() {
         email: "",
         password: "",
       }}
+      onSubmit={SignInWithCradentialsAction}
     />
   );
 }
