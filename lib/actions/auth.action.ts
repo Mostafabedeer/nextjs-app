@@ -7,8 +7,9 @@ import { SignInSchema, SignUpSchema } from "../validations";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import Account from "@/database/account.model";
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { NotFoundError } from "../http-errors";
+import ROUTES from "@/constants/routes";
 
 export async function SignUpWithCradentialsAction(
   params: AuthCradentialsParams,
@@ -139,4 +140,22 @@ export async function SignInWithCradentialsAction(
   } catch (error) {
     return handleError(error) as ErrorResponse;
   }
+}
+
+export async function signInGithubAction() {
+  await signIn("github", {
+    redirectTo: ROUTES.Home,
+  });
+}
+
+export async function signInGoogleAction() {
+  await signIn("google", {
+    redirectTo: ROUTES.Home,
+  });
+}
+
+export async function logOutAction() {
+  await signOut({
+    redirectTo: ROUTES.Home,
+  });
 }

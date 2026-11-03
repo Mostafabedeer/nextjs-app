@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { signInGithubAction } from "@/lib/actions";
+import { signInGithubAction } from "@/lib/actions/auth.action";
 
 function SignInGithubForm() {
   return (

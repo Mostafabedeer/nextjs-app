@@ -98,7 +98,7 @@ function AuthForm<T extends FieldValues>({
           })}
           <Button
             type="submit"
-            className="primary-gradient text-light-900 mt-4 w-full cursor-pointer p-4 text-sm md:mt-5 md:p-5 md:text-xl"
+            className={`primary-gradient text-light-900 mt-4 w-full cursor-pointer p-4 text-sm md:mt-5 md:p-5 md:text-xl ${form.formState.isSubmitting ? "cursor-not-allowed opacity-50" : ""}`}
           >
             {form.formState.isSubmitting
               ? "Loading..."

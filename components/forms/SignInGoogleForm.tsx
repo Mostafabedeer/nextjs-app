@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { signInGoogleAction } from "@/lib/actions";
+import { signInGoogleAction } from "@/lib/actions/auth.action";
 
 function SignInGoogleForm() {
   return (

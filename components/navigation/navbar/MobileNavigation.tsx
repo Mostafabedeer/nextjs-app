@@ -14,7 +14,7 @@ import {
 import ROUTES from "@/constants/routes";
 
 import NavLinks from "@/components/navigation/navbar/NavLinks";
-import { logOutAction } from "@/lib/actions";
+import { logOutAction } from "@/lib/actions/auth.action";
 
 const MobileNavigation = async () => {
   const session = await auth();
@@ -33,30 +33,30 @@ const MobileNavigation = async () => {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="background-light900_dark200 border-none"
+        className="background-light900_dark200 h-dvh border-none"
       >
         <SheetTitle className="hidden">Navigation</SheetTitle>
-        <Link href="/" className="flex items-center gap-1">
-          <div className="mt-1 flex items-center">
-            <Image
-              src="/images/site-logo.svg"
-              width={23}
-              height={23}
-              alt="Logo"
-            />
 
-            <p className="h2-bold font-space-grotesk text-dark-100 dark:text-light-900">
-              Dev<span className="text-primary-500">Overflow</span>
-            </p>
-          </div>
-        </Link>
+        <div className="no-scrollbar mt-5 flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto">
+          <Link href="/" className="flex items-center gap-1">
+            <div className="mt-1 flex items-center">
+              <Image
+                src="/images/site-logo.svg"
+                width={23}
+                height={23}
+                alt="Logo"
+              />
 
-        <div className="no-scrollbar mt-5 flex h-full flex-col gap-4 overflow-y-auto">
-          <section className="flex h-full flex-col gap-3 pt-4">
-            <NavLinks isMobileNav />
+              <p className="h2-bold font-space-grotesk text-dark-100 dark:text-light-900">
+                Dev<span className="text-primary-500">Overflow</span>
+              </p>
+            </div>
+          </Link>
+          <section className="flex flex-col gap-3 pt-4">
+            <NavLinks isMobileNav userId={user?.id} />
           </section>
 
-          <div className="flex flex-col gap-3">
+          <div className="mt-auto flex shrink-0 flex-col gap-3">
             {user ? (
               <form action={logOutAction}>
                 <SheetClose

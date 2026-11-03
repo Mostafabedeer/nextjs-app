@@ -9,6 +9,7 @@ import ROUTES from "@/constants/routes";
 async function RightSideBar() {
   const session = await auth();
   const user = session?.user;
+  const userId = user?.id;
 
   return (
     <div className="background-light900_dark200 sm:border-dark100_light900 hidden h-screen rounded-lg border sm:block">
@@ -26,7 +27,7 @@ async function RightSideBar() {
           </p>
         </div>
       </Link>
-      <NavLinks />
+      <NavLinks userId={userId} />
       {user ? (
         <form
           action={async () => {

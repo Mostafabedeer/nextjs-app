@@ -4,11 +4,11 @@ import Link from "next/link";
 import { ModeToggle as Theme } from "@/components/navigation/navbar/Theme";
 import { auth } from "@/auth";
 import MobileNavigation from "./MobileNavigation";
+import UserAvatar from "@/components/UserAvatar";
 
 const Navbar = async () => {
   const session = await auth();
   const user = session?.user;
-  const image = user?.image;
 
   return (
     <nav className="background-light900_dark200 shadow-light-300 col-span-7 flex h-fit w-full gap-5 p-6 sm:px-12 lg:col-start-2 dark:shadow-none">
@@ -31,16 +31,7 @@ const Navbar = async () => {
         <Theme />
 
         {user && (
-          <div className="flex items-center gap-2">
-            <div className="relative h-7 w-7 rounded-full bg-slate-400">
-              <Image
-                src={image ?? "/images/user-solid-full.svg"}
-                alt="Profile"
-                fill
-                className="rounded-full object-cover"
-              />
-            </div>
-          </div>
+          <UserAvatar userId={user.id} imgUrl={user.image} name={user.name} />
         )}
         <MobileNavigation />
       </div>
