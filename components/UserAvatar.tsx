@@ -5,7 +5,7 @@ import Image from "next/image";
 
 interface UserAvatarProps {
   imgUrl?: string | null;
-  userId?: string;
+  userId: string;
   name?: string | null;
   className?: string;
 }

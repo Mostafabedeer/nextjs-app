@@ -37,7 +37,7 @@ const MobileNavigation = async () => {
       >
         <SheetTitle className="hidden">Navigation</SheetTitle>
 
-        <div className="no-scrollbar mt-5 flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto">
+        <div className="no-scrollbar mt-5 flex min-h-0 flex-1 flex-col overflow-y-auto">
           <Link href="/" className="flex items-center gap-1">
             <div className="mt-1 flex items-center">
               <Image
@@ -52,18 +52,18 @@ const MobileNavigation = async () => {
               </p>
             </div>
           </Link>
-          <section className="flex flex-col gap-3 pt-4">
+          <section className="flex flex-col pt-4">
             <NavLinks isMobileNav userId={user?.id} />
           </section>
 
-          <div className="mt-auto flex shrink-0 flex-col gap-3">
+          <div className="mt-auto mb-4 flex shrink-0 flex-col gap-3">
             {user ? (
               <form action={logOutAction}>
                 <SheetClose
                   render={
                     <Button
                       type="submit"
-                      className="base-medium w-fit cursor-pointer bg-transparent! px-4 py-3"
+                      className="base-medium mb-4 w-fit cursor-pointer bg-transparent! px-4 py-3"
                     />
                   }
                 >

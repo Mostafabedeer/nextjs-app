@@ -26,6 +26,7 @@ interface Author {
 interface Question {
   _id: string;
   title: string;
+  content: string;
   description: string;
   tags: Tag[];
   author: Author;
@@ -33,4 +34,9 @@ interface Question {
   answers: number;
   views: number;
   createdAt: Date;
+}
+
+interface RouteParams {
+  params: Promise<Record<string, string>>;
+  searchParams: Promise<Record<string, string>>;
 }

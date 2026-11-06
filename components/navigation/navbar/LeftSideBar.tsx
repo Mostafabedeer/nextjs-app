@@ -5,6 +5,7 @@ import { auth, signOut } from "@/auth";
 import { LogOut } from "lucide-react";
 import { Button } from "../../ui/button";
 import ROUTES from "@/constants/routes";
+import { logOutAction } from "@/lib/actions/auth.action";
 
 async function RightSideBar() {
   const session = await auth();
@@ -29,13 +30,7 @@ async function RightSideBar() {
       </Link>
       <NavLinks userId={userId} />
       {user ? (
-        <form
-          action={async () => {
-            "use server";
-
-            await signOut();
-          }}
-        >
+        <form action={logOutAction}>
           <Button
             type="submit"
             className="base-medium mt-10 w-fit cursor-pointer bg-transparent! px-4"

@@ -5,7 +5,7 @@ import { AskQuestionSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import dynamic from "next/dynamic";
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   Card,
@@ -25,20 +25,33 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import TagCard from "../cards/TagCard";
+import z from "zod";
+import { createQuestion, editQuestion } from "@/lib/actions/question.action";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import ROUTES from "@/constants/routes";
+import { Loader } from "lucide-react";
 
 const Editor = dynamic(() => import("@/components/editor/index"), {
   ssr: false,
 });
 
-function AskQuestionForm() {
+interface params {
+  question?: Question;
+  isEdit?: boolean;
+}
+
+function AskQuestionForm({ question, isEdit = false }: params) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const editorRef = useRef<MDXEditorMethods>(null);
   const [tagInput, setTagInput] = useState("");
   const form = useForm({
     resolver: zodResolver(AskQuestionSchema),
     defaultValues: {
-      title: "",
-      content: "",
-      tags: [],
+      title: question?.title || "",
+      content: question?.content || "",
+      tags: question?.tags.map((tag) => tag.name) || [],
     },
   });
 
@@ -77,17 +90,66 @@ function AskQuestionForm() {
     form.setValue("tags", updatedTags);
   }
 
+  async function handleCreateQuestion(data: z.infer<typeof AskQuestionSchema>) {
+    startTransition(async () => {
+      if (isEdit && question) {
+        const result = await editQuestion({
+          questionId: question._id,
+          ...data,
+        });
+        if (result.success) {
+          toast("Success", {
+            description: "Your question has been updated successfully.",
+          });
+          if (result.data) {
+            router.push(ROUTES.QUESTION(result.data._id.toString()));
+          }
+        } else {
+          toast("Error", {
+            description:
+              result.error?.message ??
+              "An error occurred while creating the question.",
+          });
+        }
+        return;
+      }
+
+      const result = await createQuestion(data);
+      if (result.success) {
+        toast("Success", {
+          description: "Your question has been created successfully.",
+        });
+        if (result.data) {
+          router.push(
+            ROUTES.QUESTION(
+              String((result.data as { _id: string | number })._id),
+            ),
+          );
+        }
+      } else {
+        toast("Error", {
+          description:
+            result.error?.message ??
+            "An error occurred while creating the question.",
+        });
+      }
+    });
+  }
+
   return (
     <Card className="background-light850_dark100">
       <CardHeader>
         <CardTitle>
           <h1 className="h2-semibold sm:h1-bold text-dark100_light900 mt-4">
-            Ask a public question
+            {isEdit ? "Edit your question" : "Ask a public question"}
           </h1>
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <form className="mt-6 flex flex-col gap-4 sm:mt-9">
+      <form
+        onSubmit={form.handleSubmit(handleCreateQuestion)}
+        className="mt-6 flex flex-col gap-4 sm:mt-9"
+      >
+        <CardContent>
           <FieldGroup>
             <Controller
               name="title"
@@ -104,7 +166,7 @@ function AskQuestionForm() {
                   <Input
                     {...field}
                     id="QuestionTitle"
-                    className="background-light800_dark300 text-dark100_light900 placeholder:text-dark300_light600 mt-1 h-13 rounded-lg border-none px-4 text-sm outline-none md:text-xl"
+                    className="background-light800_dark300 text-dark100_light900 placeholder:text-dark300_light600 md:text-md mt-1 h-13 rounded-lg border-none px-4 font-[inherit] text-sm outline-none"
                     aria-invalid={fieldState.invalid}
                     autoComplete="off"
                   />
@@ -162,7 +224,7 @@ function AskQuestionForm() {
                     ref={field.ref}
                     value={tagInput}
                     id="tags"
-                    className="background-light800_dark300 text-dark100_light900 placeholder:text-dark300_light600 mt-1 h-13 rounded-lg border-none px-4 text-sm outline-none md:text-xl"
+                    className="background-light800_dark300 text-dark100_light900 placeholder:text-dark300_light600 md:text-md md:text-md mt-1 h-13 rounded-lg border-none px-4 font-[inherit] text-sm outline-none"
                     aria-invalid={fieldState.invalid}
                     autoComplete="off"
                     onBlur={field.onBlur}
@@ -193,19 +255,23 @@ function AskQuestionForm() {
               )}
             />
           </FieldGroup>
-        </form>
-      </CardContent>
-      <CardFooter>
-        <Field orientation="horizontal">
-          <Button
-            type="submit"
-            className="primary-gradient sm:paragraph-medium paragraph-regular hover:bg-primary-600 mt-9 mr-5 ml-auto w-fit cursor-pointer rounded-sm border-none px-4 py-1.5 text-white transition-colors outline-none sm:px-7 sm:py-6"
-            onClick={() => form.reset()}
-          >
-            Ask a Question
-          </Button>
-        </Field>
-      </CardFooter>
+        </CardContent>
+        <CardFooter>
+          <Field orientation="horizontal">
+            <Button
+              type="submit"
+              disabled={isPending}
+              className="primary-gradient sm:paragraph-medium paragraph-regular hover:bg-primary-600 mt-9 mr-5 ml-auto w-fit cursor-pointer rounded-sm border-none px-4 py-1.5 text-white transition-colors outline-none sm:px-7 sm:py-6"
+            >
+              {isPending ? (
+                <Loader className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <>{isEdit ? "Edit Question" : "Ask a Question"}</>
+              )}
+            </Button>
+          </Field>
+        </CardFooter>
+      </form>
     </Card>
   );
 }
