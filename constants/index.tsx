@@ -61,6 +61,13 @@ export const FILTER_OPTIONS = [
   },
 ];
 
+export const TAG_FILTER_OPTIONS = [
+  { name: "Popular", value: "popular" },
+  { name: "Newest", value: "newest" },
+  { name: "Oldest", value: "oldest" },
+  { name: "Name", value: "name" },
+];
+
 // upvote, answer, view,
 
 export const AUTHOR_QUESTION_DATA = [

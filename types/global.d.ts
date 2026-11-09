@@ -17,6 +17,7 @@ type APIResponse<T = null> = NextResponse<SuccessResponse<T> | ErrorResponse>;
 interface Tag {
   _id: string;
   name: string;
+  questions: number;
 }
 interface Author {
   _id: string;

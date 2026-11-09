@@ -1,7 +1,8 @@
 import QuestionCard from "@/components/cards/QuestionCard";
 import DataRenderer from "@/components/DataRenderer";
-import FilterHomeQuestions from "@/components/filter/FilterHomeQuestions";
+import FilterOptions from "@/components/filter/FilterOptions";
 import LocalSearch from "@/components/search/LocalSearch";
+import { FILTER_OPTIONS } from "@/constants";
 import ROUTES from "@/constants/routes";
 import { EMPTY_QUESTION } from "@/constants/states";
 import { getQuestions } from "@/lib/actions/question.action";
@@ -22,7 +23,7 @@ async function Home({ searchParams }: SearchParams) {
   const questions = data?.questions ?? [];
 
   return (
-    <div className="container mx-auto flex h-full min-h-0 flex-col">
+    <div className="container mx-auto flex h-full min-h-0 flex-col px-2 sm:px-4 lg:px-0">
       <section className="mt-5 flex shrink-0 items-center justify-between">
         <h1 className="text-dark200_light900 sm:h1-bold text-sm font-medium capitalize sm:text-lg">
           all questions
@@ -42,7 +43,7 @@ async function Home({ searchParams }: SearchParams) {
         />
       </section>
       <section className="mt-5 mb-3 shrink-0">
-        <FilterHomeQuestions />
+        <FilterOptions options={FILTER_OPTIONS} />
       </section>
       <DataRenderer
         success={success}

@@ -12,7 +12,7 @@ function QuestionCard({ question }: QuestionCardProps) {
   return (
     <li
       key={question._id}
-      className="rounded-1.5 border-light-300_dark700 background-light900_darkgradient border px-5 py-6 transition-all duration-300 hover:shadow-md sm:px-11 sm:py-9"
+      className="rounded-1.5 border-light-300_dark700 background-light900_darkgradient mb-2 border px-5 py-6 transition-all duration-300 hover:shadow-md sm:px-11 sm:py-9"
     >
       <p className="text-xs sm:hidden">{getTimeStamp(question.createdAt)}</p>
       <Link href={`/questions/${question._id}`}>
