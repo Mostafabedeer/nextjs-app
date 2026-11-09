@@ -1,6 +1,6 @@
 import ROUTES from "@/constants/routes";
 import Link from "next/link";
-import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Avatar, AvatarBadge, AvatarFallback } from "./ui/avatar";
 import Image from "next/image";
 
 interface UserAvatarProps {
@@ -38,6 +38,7 @@ function UserAvatar({
             {initials}
           </AvatarFallback>
         )}
+        <AvatarBadge className="bg-green-600 dark:bg-green-800" />
       </Avatar>
     </Link>
   );
