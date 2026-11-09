@@ -1,8 +1,10 @@
 import { auth } from "@/auth";
 import QuestionCard from "@/components/cards/QuestionCard";
+import DataRenderer from "@/components/DataRenderer";
 import FilterHomeQuestions from "@/components/filter/FilterHomeQuestions";
 import LocalSearch from "@/components/search/LocalSearch";
 import ROUTES from "@/constants/routes";
+import { EMPTY_QUESTION } from "@/constants/states";
 import { getQuestions } from "@/lib/actions/question.action";
 import Link from "next/link";
 
@@ -43,29 +45,17 @@ async function Home({ searchParams }: SearchParams) {
       <section className="mt-5">
         <FilterHomeQuestions />
       </section>
-      {success ? (
-        <div>
-          {questions.length !== 0 ? (
-            <section className="mt-5 max-h-[calc(100vh-300px)] overflow-y-scroll">
-              <ul className="flex flex-col gap-5">
-                {questions.map((question) => (
-                  <QuestionCard key={question._id} question={question} />
-                ))}
-              </ul>
-            </section>
-          ) : (
-            <div className="mt-10 flex items-center justify-center">
-              <p className="text-dark400_light700 mt-5 text-center">
-                No questions found.
-              </p>
-            </div>
-          )}
-        </div>
-      ) : (
-        <div className="mt-10 flex items-center justify-center">
-          {error?.message || "Failed to fetch questions"}
-        </div>
-      )}
+      <DataRenderer
+        success={success}
+        error={error}
+        data={questions}
+        empty={EMPTY_QUESTION}
+        render={(questions: Question[]) =>
+          questions.map((question) => (
+            <QuestionCard key={question._id} question={question} />
+          ))
+        }
+      />
     </div>
   );
 }
