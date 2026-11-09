@@ -7,8 +7,10 @@ import {
   AskQuestionSchema,
   EditQuestionSchema,
   GetQuestionSchema,
+  PaginatedSearchParamsSchema,
 } from "../validations";
 import mongoose from "mongoose";
+import type { QueryFilter } from "mongoose";
 import Tag, { ITagDoc } from "@/database/tag.model";
 import TagQuestion from "@/database/tag-question.model";
 import { cache } from "react";
@@ -223,3 +225,76 @@ export const getQuestion = cache(async function getQuestion(
     return handleError(error) as ErrorResponse;
   }
 });
+
+export async function getQuestions(
+  params: PaginatedQuestionsParams,
+): Promise<ActionResponse<{ questions: Question[]; isNextPage: boolean }>> {
+  const validatedResult = await action({
+    params,
+    schema: PaginatedSearchParamsSchema,
+  });
+  if (validatedResult instanceof Error) {
+    return handleError(validatedResult) as ErrorResponse;
+  }
+
+  const { page = 1, pageSize = 10, query, filter } = params;
+  const limit = Number(pageSize);
+  const skip = (Number(page) - 1) * limit;
+
+  const filterQuery: QueryFilter<typeof Question> = {};
+
+  if (filter === "reccommended") {
+    return { success: true, data: { questions: [], isNextPage: false } };
+  }
+
+  if (query) {
+    filterQuery.$or = [
+      { title: { $regex: query, $options: "i" } },
+      { content: { $regex: query, $options: "i" } },
+    ];
+  }
+
+  let sortCreteria = {};
+
+  switch (filter) {
+    case "newest":
+      sortCreteria = { createdAt: -1 };
+      break;
+    case "unanswered":
+      filterQuery.answers = 0;
+      sortCreteria = { createdAt: -1 };
+      break;
+    case "frequent":
+      sortCreteria = { answers: -1 };
+      break;
+    case "popular":
+      sortCreteria = { upvotes: -1 };
+      break;
+    default:
+      sortCreteria = { createdAt: -1 };
+  }
+
+  try {
+    const questions = await Question.find(filterQuery)
+      .sort(sortCreteria)
+      .skip(skip)
+      .limit(limit + 1)
+      .populate("tags", "_id name")
+      .populate("author", "_id name image")
+      .lean();
+
+    const totalQuestions = await Question.countDocuments(filterQuery);
+
+    const isNextPage = totalQuestions > skip + questions.length;
+
+    return {
+      success: true,
+      data: {
+        questions: JSON.parse(JSON.stringify(questions)),
+        isNextPage,
+      },
+    };
+  } catch (error) {
+    return handleError(error) as ErrorResponse;
+  }
+}
