@@ -37,7 +37,7 @@ async function QuestionCard({ question }: QuestionCardProps) {
           imgStyle="rounded-full"
           alt={question.author.name}
           value={question.author.name}
-          title={`${question.author.name.split(" ")[0]}• asked ${getTimeStamp(question.createdAt)}`}
+          title={` • asked ${getTimeStamp(question.createdAt)}`}
           href={ROUTES.PROFILE(question.author._id)}
           textStyle="text-dark400_light500 text-xs sm:text-sm"
           isAuthor

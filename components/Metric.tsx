@@ -1,4 +1,4 @@
-import { cn, getTimeStamp } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -39,7 +39,9 @@ function Metric({
           className={`${imgStyle} `}
         />
         <p className={`${textStyle} flex items-center gap-0.5`}>
-          {isAuthor && createdAt ? <>{String(value).split(" ")[0]}</> : null}
+          {isAuthor && createdAt ? (
+            <span className="sm:hidden">{String(value).split(" ")[0]}</span>
+          ) : null}
           {title ? (
             <span className={cn(`small-regular line-clamp-1`, titleStyles)}>
               {value} {title}

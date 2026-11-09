@@ -6,12 +6,12 @@ import { Toaster } from "@/components/ui/toast";
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="h-screen sm:grid sm:grid-cols-8 sm:grid-rows-[auto_1fr_1fr_1fr_1fr] sm:gap-3">
+    <main className="flex h-screen flex-col sm:grid sm:grid-cols-8 sm:grid-rows-[auto_1fr_1fr_1fr_1fr] sm:gap-3">
       <aside className="hidden sm:col-span-2 sm:col-start-1 sm:row-span-5 sm:row-start-1 sm:block lg:col-span-1">
         <LeftSideBar />
       </aside>
       <Navbar />
-      <div className="col-span-7 col-start-3 row-span-4 row-start-2 overflow-y-auto lg:col-span-5">
+      <div className="col-span-7 col-start-3 row-span-4 row-start-2 min-h-0 flex-1 overflow-y-auto lg:col-span-5">
         {children}
       </div>
       <HotNetwork />

@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import QuestionCard from "@/components/cards/QuestionCard";
 import DataRenderer from "@/components/DataRenderer";
 import FilterHomeQuestions from "@/components/filter/FilterHomeQuestions";
@@ -23,8 +22,8 @@ async function Home({ searchParams }: SearchParams) {
   const questions = data?.questions ?? [];
 
   return (
-    <div className="container mx-auto">
-      <section className="mt-5 flex items-center justify-between">
+    <div className="container mx-auto flex h-full min-h-0 flex-col">
+      <section className="mt-5 flex shrink-0 items-center justify-between">
         <h1 className="text-dark200_light900 sm:h1-bold text-sm font-medium capitalize sm:text-lg">
           all questions
         </h1>
@@ -34,7 +33,7 @@ async function Home({ searchParams }: SearchParams) {
           </Link>
         </button>
       </section>
-      <section className="mt-5">
+      <section className="mt-5 shrink-0">
         <LocalSearch
           route={ROUTES.Home}
           imgSrc="/icons/search.svg"
@@ -42,7 +41,7 @@ async function Home({ searchParams }: SearchParams) {
           iconPosition="left"
         />
       </section>
-      <section className="mt-5">
+      <section className="mt-5 mb-3 shrink-0">
         <FilterHomeQuestions />
       </section>
       <DataRenderer

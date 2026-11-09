@@ -116,7 +116,11 @@ const DataRenderer = <T,>({
       />
     );
 
-  return <div>{render(data)}</div>;
+  return (
+    <div className="min-h-0 flex-1 overflow-y-auto pr-2">
+      {render(data)}
+    </div>
+  );
 };
 
 export default DataRenderer;
