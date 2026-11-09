@@ -44,7 +44,7 @@ const StateSkeleton = ({
   message,
   button,
 }: StateSkeletonProps) => (
-  <div className="mt-8 flex w-full flex-col items-center justify-center sm:mt-36">
+  <div className="mt-6 flex w-full flex-col items-center justify-center sm:mt-12">
     <>
       <Image
         src={image.dark}
@@ -117,9 +117,7 @@ const DataRenderer = <T,>({
     );
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto pr-2">
-      {render(data)}
-    </div>
+    <div className="min-h-0 flex-1 overflow-y-auto pr-2">{render(data)}</div>
   );
 };
 

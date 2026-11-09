@@ -28,11 +28,12 @@ async function Home({ searchParams }: SearchParams) {
         <h1 className="text-dark200_light900 sm:h1-bold text-sm font-medium capitalize sm:text-lg">
           all questions
         </h1>
-        <button className="text-light-900 primary-gradient rounded-1.5 px-5 py-2 text-sm font-medium shadow-md transition-all duration-300 hover:shadow-lg sm:px-10 sm:py-4 sm:text-base">
-          <Link className="block h-full w-full" href={ROUTES.ASK_QUESTION}>
-            Ask a Question
-          </Link>
-        </button>
+        <Link
+          className="text-light-900 primary-gradient rounded-1.5 block px-5 py-2 text-sm font-medium shadow-md transition-all duration-300 hover:shadow-lg sm:px-10 sm:py-4 sm:text-base"
+          href={ROUTES.ASK_QUESTION}
+        >
+          Ask Question
+        </Link>
       </section>
       <section className="mt-5 shrink-0">
         <LocalSearch

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 
 import { formUrlParams, removeUrlParams } from "@/lib/url";
 
@@ -25,36 +25,38 @@ const LocalSearch = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "";
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [searchQuery, setSearchQuery] = useState(query);
-  console.log(pathname, router, searchParams, query);
+  const handleSearchChange = (value: string) => {
+    if (debounceTimer.current) clearTimeout(debounceTimer.current);
 
-  useEffect(() => {
-    // we use a debounce function to avoid making too many requests when the user is typing
-    const delayDebounceFn = setTimeout(() => {
-      if (searchQuery === query) return;
-      if (searchQuery) {
+    debounceTimer.current = setTimeout(() => {
+      if (
+        window.location.pathname !== route ||
+        searchInputRef.current?.value !== value
+      ) {
+        return;
+      }
+
+      if (value) {
         const newUrl = formUrlParams({
           params: searchParams.toString(),
           key: "query",
-          value: searchQuery,
+          value,
         });
 
         router.push(newUrl, { scroll: false });
       } else {
-        if (pathname === route) {
-          const newUrl = removeUrlParams({
-            params: searchParams.toString(),
-            keysToRemove: ["query"],
-          });
+        const newUrl = removeUrlParams({
+          params: searchParams.toString(),
+          keysToRemove: ["query"],
+        });
 
-          router.push(newUrl, { scroll: false });
-        }
+        router.push(newUrl, { scroll: false });
       }
     }, 300);
-
-    return () => clearTimeout(delayDebounceFn);
-  }, [searchQuery, router, route, searchParams, pathname, query]);
+  };
 
   return (
     <div className="background-lightgradient_darkgradient flex items-center gap-2 p-4">
@@ -70,12 +72,14 @@ const LocalSearch = ({
         </label>
       )}
       <input
-        value={searchQuery}
+        key={`${pathname}:${query}`}
+        ref={searchInputRef}
+        defaultValue={pathname === route ? query : ""}
         id="search"
         type="text"
         placeholder={placeholder}
         className="placeholder text-dark200_light900 rounded-2 w-full border-none text-sm outline-none sm:text-base"
-        onChange={(e) => setSearchQuery(e.target.value)}
+        onChange={(e) => handleSearchChange(e.target.value)}
       ></input>
     </div>
   );
