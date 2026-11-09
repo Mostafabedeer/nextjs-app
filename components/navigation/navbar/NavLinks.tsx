@@ -21,18 +21,22 @@ const NavLinks = ({
   return (
     <>
       {sidebarLinks.map((item) => {
-        const isActive =
-          (pathname.includes(item.route) && item.route.length > 1) ||
-          pathname === item.route;
+        const route =
+          item.route === "/profile"
+            ? userId
+              ? `${item.route}/${userId}`
+              : null
+            : item.route;
 
-        if (item.route === "/profile") {
-          if (userId) item.route = `${item.route}/${userId}`;
-          else return null;
-        }
+        if (!route) return null;
+
+        const isActive =
+          pathname === route ||
+          (route.length > 1 && pathname.startsWith(`${route}/`));
 
         const LinkComponent = (
           <Link
-            href={item.route}
+            href={route}
             key={item.label}
             className={cn(
               isActive
@@ -62,12 +66,12 @@ const NavLinks = ({
 
         return isMobileNav ? (
           <SheetClose
-            key={item.route}
+            key={route}
             nativeButton={false}
             render={LinkComponent}
           />
         ) : (
-          <React.Fragment key={item.route}>{LinkComponent}</React.Fragment>
+          <React.Fragment key={route}>{LinkComponent}</React.Fragment>
         );
       })}
     </>
