@@ -21,6 +21,7 @@ interface Tag {
 interface Author {
   _id: string;
   name: string;
+  image?: string;
 }
 
 interface Question {

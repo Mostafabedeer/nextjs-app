@@ -3,15 +3,12 @@ import Link from "next/link";
 import TagCard from "./TagCard";
 import Metric from "../Metric";
 import ROUTES from "@/constants/routes";
-import { auth } from "@/auth";
 
 interface QuestionCardProps {
   question: Question;
 }
 
-async function QuestionCard({ question }: QuestionCardProps) {
-  const session = await auth();
-  const authorImage = session?.user?.image || "/icons/user.svg";
+function QuestionCard({ question }: QuestionCardProps) {
   return (
     <li
       key={question._id}
@@ -24,7 +21,7 @@ async function QuestionCard({ question }: QuestionCardProps) {
         </h2>
       </Link>
       {/* tags */}
-      <ul className="mt-4 flex gap-2">
+      <ul className="mt-4 flex flex-wrap gap-2">
         {question.tags.map((tag) => (
           <li key={tag._id}>
             <TagCard _id={tag._id} name={tag.name} compact />
@@ -33,8 +30,8 @@ async function QuestionCard({ question }: QuestionCardProps) {
       </ul>
       <div className="mt-4 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center sm:gap-0">
         <Metric
-          imgSrc={authorImage}
-          imgStyle="rounded-full"
+          imgSrc={question.author?.image || "/icons/user.svg"}
+          imgStyle="rounded-full mr-1"
           alt={question.author.name}
           value={question.author.name}
           title={` • asked ${getTimeStamp(question.createdAt)}`}
