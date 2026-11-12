@@ -15,10 +15,10 @@ function QuestionCard({ question }: QuestionCardProps) {
       className="rounded-1.5 border-light-300_dark700 background-light900_darkgradient mb-2 border px-5 py-6 transition-all duration-300 hover:shadow-md sm:px-11 sm:py-9"
     >
       <p className="text-xs sm:hidden">{getTimeStamp(question.createdAt)}</p>
-      <Link href={`/questions/${question._id}`}>
-        <h2 className="sm:h3-semibold text-dark200_light900">
+      <Link href={ROUTES.QUESTION(question._id)}>
+        <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1">
           {question.title}
-        </h2>
+        </h3>
       </Link>
       {/* tags */}
       <ul className="mt-4 flex flex-wrap gap-2">

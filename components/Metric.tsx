@@ -42,11 +42,10 @@ function Metric({
           {isAuthor && createdAt ? (
             <span className="sm:hidden">{String(value).split(" ")[0]}</span>
           ) : null}
-          {title ? (
-            <span className={cn(`small-regular line-clamp-1`, titleStyles)}>
-              {value} {title}
-            </span>
-          ) : null}
+          <span className={cn(`small-regular line-clamp-1`, titleStyles)}>
+            {value}
+            {title ? ` ${title}` : ""}
+          </span>
         </p>
       </div>
     </>
